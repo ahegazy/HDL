@@ -1,7 +1,7 @@
 # Hardware description languages [HDL]
 This repository contains scripts that I create through my digital design course.
 
-##Languages 
+## Languages 
 - Verilog 
 - VHDL 
 - SystemVerilog 
