@@ -11,5 +11,7 @@ This repository contains scripts that I create through my digital design course.
 
 - [SequenceDetector](SequenceDetector/) Detects a sequence of “110100” without any overlapping using FSM algorithm.
 
+- [Queue Manager](QueueManager) Monitors the client queue in front of the tellers. 
+
 ###### Contact .. 
 Contact ME: Ahmad Hegazy <ahegazipro@gmail.com>
