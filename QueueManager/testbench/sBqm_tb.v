@@ -130,7 +130,7 @@ always @ (frontPC)  oldDown_tb = #5 frontPC;
 //Testing 
 always @(Pcount)
 begin 
-	#1 //wait two time unit then proceed 
+	#1 //wait one time unit then proceed 
 // Testing the counter output
 	if (Pcount != Pcount_tb) begin 
 		$display ("Count Error @ time: %d ,clk: %b, Pcount: %d, Pcount_tb: %d",$time,clk,Pcount,Pcount_tb);
