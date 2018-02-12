@@ -34,8 +34,7 @@ where Tcount is the number of tellers currently in service (Tcount > {1,2,3}) an
 ## TestBench 
 A testbench module called [sBqm_tb](testbench/sBqm_tb.v) is created in [testbench](testbench)
 - It has it unique counter and checks whether the main counter is working properly or not if not it produces an error.. 
-> 1 error appears when counting as the DUT counter depends on the clock, while the test counter depends one the negedge of the photocells so there is a 1/2 clock delay between both .. 
-> it can be skipped by using @(Pcount) only, in the always block [line 127](testbench/sBqm_tb.v#L127)
+- It checks for the flags and expected waiting time of the client.
 
 
 ## Language

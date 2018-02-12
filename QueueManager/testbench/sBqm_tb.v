@@ -1,8 +1,11 @@
 // DUT : sBqm
 `timescale 1ps/1ps // unit/precision  
 	/*
-		1 error appears when counting as the DUT counter depends on the clock, while the test counter depends one the negedge of the photocells so there is a 1/2 clock delay between both ..
-		can be skipped by using @(Pcount) only, in the always block line 127
+		- An error appears when counting as the DUT counter depends on the clock, while the test counter depends one the negedge of the photocells so there is a 1/2 clock delay between both ..
+		it only appears when using @(Pcount or Pcount_tb), in the always block line 129
+		can be skipped by using @(Pcount) only...
+		- Another error exists as a result of wrong calculations of the Wtime ROM ..
+		- A flag error appears so i had to wait 1 timeunits before checking ...  
 	*/
 module sBqm_tb;
   
@@ -14,7 +17,7 @@ module sBqm_tb;
 	//TestBench regs
   reg [2:0] Pcount_tb;
   reg oldUP_tb,oldDown_tb;
-  
+  reg [4:0] Wtime_tb;
  sBqm q0 (
  .frontPC (frontPC), //input
  .backPC (backPC),
@@ -40,6 +43,7 @@ module sBqm_tb;
    oldUP_tb = 1;
    oldDown_tb = 1;
    Pcount_tb = 0;
+   Wtime_tb = 0;
  end
  
  // Generating The clock
@@ -124,13 +128,37 @@ always @ (frontPC)  oldDown_tb = #5 frontPC;
 
 
 //Testing 
-always @(Pcount or Pcount_tb)
+always @(Pcount)
 begin 
+	#1 //wait two time unit then proceed 
+// Testing the counter output
 	if (Pcount != Pcount_tb) begin 
-		$display ("Error @ time: %d ,clk: %b, Pcount: %d, Pcount_tb: %d",$time,clk,Pcount,Pcount_tb);
+		$display ("Count Error @ time: %d ,clk: %b, Pcount: %d, Pcount_tb: %d",$time,clk,Pcount,Pcount_tb);
 		$display ("see TB 'sBqm_tb' code comments ... ");
-		#10 $stop;
+//		#10 $stop;
 	end
+//checking the flags
+	if(Pcount == 3'b000 & (empty != 1 | full != 0))
+	begin 
+		$display ("empty empty Flag Error @ time: %d ,clk: %b, Pcount: %d, empty_flag: %b, full_flag: %b",$time,clk,Pcount,empty,full);
+//		#10 $stop;
+	end
+
+
+	if(Pcount == 3'b111 & (full != 1 | empty != 0))
+	begin 
+		$display ("full flag Error @ time: %d ,clk: %b, Pcount: %d, full_flag: %b, empty_flag: %b",$time,clk,Pcount,full,empty);
+//		#10 $stop;
+	end
+//testing the waiting time 
+	Wtime_tb = 3*(Pcount+Tcount-1)/Tcount;
+	
+	if( ((Wtime != Wtime_tb) & Pcount != 0) | (Pcount == 0 & Wtime != 0))
+	begin 
+		$display ("Wtime Error @ time: %d ,clk: %b, Pcount: %d, Tcount: %d,Wtime: %d,Expected Wtime: %d",$time,clk,Pcount,Tcount,Wtime,Wtime_tb);
+	//	#10 $stop;
+	end
+
 end
 
 initial
