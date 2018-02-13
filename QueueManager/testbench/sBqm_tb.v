@@ -2,11 +2,10 @@
 `timescale 1ps/1ps // unit/precision  
 	/*
 		- An error appears when counting as the DUT counter depends on the clock, while the test counter depends one the negedge of the photocells so there is a 1/2 clock delay between both ..
-		it only appears when using @(Pcount or Pcount_tb), in the always block line 129
-		can be skipped by using @(Pcount) only...
-		- Another error exists as a result of wrong calculations of the Wtime ROM ..
-		- A flag error appears so i had to wait 1 timeunits before checking ...  
+		it only appears when using @(Pcount or Pcount_tb), in the always block line 133
+		- A flag/counter error appears so i used a 1 timeunit wait before checking ...  
 	*/
+	
 module sBqm_tb;
   
   reg [1:0] Tcount;
@@ -18,7 +17,10 @@ module sBqm_tb;
   reg [2:0] Pcount_tb;
   reg oldUP_tb,oldDown_tb;
   reg [4:0] Wtime_tb;
- sBqm q0 (
+  
+  //new instance of sBqm main module
+
+  sBqm q0 (
  .frontPC (frontPC), //input
  .backPC (backPC),
  .Tcount (Tcount),
@@ -128,13 +130,12 @@ always @ (frontPC)  oldDown_tb = #5 frontPC;
 
 
 //Testing 
-always @(Pcount)
+always @(posedge clk)
 begin 
 	#1 //wait one time unit then proceed 
 // Testing the counter output
 	if (Pcount != Pcount_tb) begin 
 		$display ("Count Error @ time: %d ,clk: %b, Pcount: %d, Pcount_tb: %d",$time,clk,Pcount,Pcount_tb);
-		$display ("see TB 'sBqm_tb' code comments ... ");
 //		#10 $stop;
 	end
 //checking the flags
