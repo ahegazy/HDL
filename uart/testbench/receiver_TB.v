@@ -1,3 +1,16 @@
+///////////////////////////////////////////////////////////////////////////////
+ // $Id: receiver_TB.v 916 2018-02-25 Ahmad Hegazy $
+ //
+ // Module: receiver_TB.v
+ // Project: UART
+ // Description: receiver testbench tests the receiver functionality. 
+ // Author: receiver written by: Mostafa Amr 
+ //					Modification: Ahmad Hegazy <ahegazipro@gmail.com> 
+ //
+ // Change history: 
+ //
+ ///////////////////////////////////////////////////////////////////////////////
+ 
 `timescale 10ps / 10ps
 module receiver_TB ;
 

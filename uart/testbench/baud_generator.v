@@ -1,3 +1,14 @@
+///////////////////////////////////////////////////////////////////////////////
+ // $Id: baud_generator.v 916 2018-02-25 Ahmad Hegazy $
+ //
+ // Module: baud_generator.v
+ // Project: UART
+ // Description: Generates baud rates from the system clock to run the transmitter and receiver 
+ // Author: Ahmad Hegazy <ahegazipro@gmail.com> 
+ //
+ // Change history: 
+ //
+ ///////////////////////////////////////////////////////////////////////////////
 module baud_generator(clk_tx,clk_rx,clk_time,clk,reset,bd_rate);
 	input reset ,clk; //input frequency 50 MHz .. clk T = 20ns 
 	input [1:0] bd_rate; // frequency choices <00:1200,01:2400,10:4800,11:9600> bps

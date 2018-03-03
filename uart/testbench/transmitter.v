@@ -1,4 +1,15 @@
-module transmitter(tx ,clk_tx ,reset ,w_en ,par ,d_num ,s_num ,data_in);
+///////////////////////////////////////////////////////////////////////////////
+ // $Id: transmitter.v 916 2018-02-25 Ahmad Hegazy $
+ //
+ // Module: trasnmitter.v
+ // Project: UART
+ // Description: uart transmitter .. takes parallel data and sends them series bit by bit
+ // Author: Ahmad Hegazy <ahegazipro@gmail.com> 
+ //
+ // Change history: 
+ //
+ ///////////////////////////////////////////////////////////////////////////////
+ module transmitter(tx ,clk_tx ,reset ,w_en ,par ,d_num ,s_num ,data_in);
 	output reg tx;
 	input clk_tx ,reset;
 	input [7:0] data_in;

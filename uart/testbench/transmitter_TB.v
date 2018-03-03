@@ -1,3 +1,14 @@
+///////////////////////////////////////////////////////////////////////////////
+ // $Id: transmitter_TB.v 916 2018-02-25 Ahmad Hegazy $
+ //
+ // Module: transmitter_TB.v
+ // Project: UART
+ // Description: transmitter testbench tests the transmitter functionality. 
+ // Author: Ahmad Hegazy <ahegazipro@gmail.com> 
+ //
+ // Change history: 
+ //
+ ///////////////////////////////////////////////////////////////////////////////
 `timescale 10 us / 1 us
 
 module transmitter_TB;

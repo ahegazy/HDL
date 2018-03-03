@@ -1,4 +1,16 @@
-module Clock (sec ,min ,hour ,day ,month ,clk_time ,reset);
+///////////////////////////////////////////////////////////////////////////////
+ // $Id: clock.v 916 2018-02-25 $
+ //
+ // Module: clock.v
+ // Project: UART
+ // Description: A clock that takes 1Hz frequency and produce time [secs/minutes/hours ..]
+ // Author: Mostafa AMR  
+ //
+ // Change history: 
+ //
+ ///////////////////////////////////////////////////////////////////////////////
+ 
+ module Clock (sec ,min ,hour ,day ,month ,clk_time ,reset);
   input clk_time, reset;
 	output reg [6:0] sec , min ;
 	output reg [5:0] hour , day ;
@@ -11,8 +23,8 @@ module Clock (sec ,min ,hour ,day ,month ,clk_time ,reset);
         sec <= 0;
         min <= 0;
         hour <= 0;
-		day <= 0 ;
-		month <= 0 ;
+				day <= 0 ;
+				month <= 0 ;
       end
     else
 		begin

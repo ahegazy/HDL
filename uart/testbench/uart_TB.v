@@ -1,3 +1,14 @@
+///////////////////////////////////////////////////////////////////////////////
+ // $Id: uart_TB.v 916 2018-02-25 Ahmad Hegazy $
+ //
+ // Module: uart_TB.v
+ // Project: UART
+ // Description: uart test bench .. tests the uart inputs/outputs and functionality.
+ // Author: Ahmad Hegazy <ahegazipro@gmail.com> 
+ //
+ // Change history: 
+ //
+ ///////////////////////////////////////////////////////////////////////////////
 `timescale 10ns/1ns
 module uart_TB;
 
@@ -22,9 +33,7 @@ parameter WAIT_15MINS = 15 * 60 * 100_000_000; // 15 minutes to ns - 10 timeunit
 
 //UART instance
 
-uart U0 (.dout(dout) ,
-							.err(err) ,
-							.clk(clk) ,
+uart UART0	(			.clk(clk) ,
 							.reset(reset) ,
 							.bd_rate(bd_rate) ,
 							.par(par) ,
@@ -32,6 +41,9 @@ uart U0 (.dout(dout) ,
 							.s_num(s_num) ,
 							.data_in(data_in)
 							);
+
+assign dout = UART0.dout;
+assign err = UART0.err;
 
 /*Initializing inputs*/
 initial 
@@ -49,8 +61,8 @@ end
 /*Monitor values*/
 initial 
 begin 
-  $display ("\t\ttime,\tdata_in,\tbaud,\ts_num,\td_num,\tALARM,\tShutdown,\terr,\tdout");
-  $monitor ("%d,\t%b,\t%b,\t%b,\t%b,\t%b,\t%b,\t%b,\t%b",$time,data_in,bd_rate,s_num,d_num,ALARM,SHUTDOWN,err,dout);
+  $display ("\t\ttime,\tdata_in,\tbaud,\ts_num,\td_num,\terr,\tdout");
+  $monitor ("%d,\t%b,\t%b,\t%b,\t%b,\t%b,\t%b",$time,data_in,bd_rate,s_num,d_num,err,dout);
 end
 
 //Generate clock 

@@ -1,6 +1,17 @@
+///////////////////////////////////////////////////////////////////////////////
+ // $Id: receiver.v 916 2018-02-25 Ahmad Hegazy $
+ //
+ // Module: receiver.v
+ // Project: UART
+ // Description: uart receiver .. takes bit by bit and saves them as a register.
+ // Author: Ahmad Hegazy <ahegazipro@gmail.com> 
+ //
+ // Change history: 
+ //
+ ///////////////////////////////////////////////////////////////////////////////
 module receiver(dout, clk_rx ,reset ,par ,d_num ,s_num ,err ,rx);
 	output reg [7:0] dout;
-	output reg [2:0] err; // data overrun, frame error,parity //err = {PAR_ERR,FRAME_ERR,DO_ERR}; 
+	output [2:0] err; // data overrun, frame error,parity //err = {PAR_ERR,FRAME_ERR,DO_ERR}; 
 	input reset,clk_rx,rx;
 
 	input d_num,s_num; // 0: 7 bits, 1: 8 bits
@@ -25,6 +36,8 @@ module receiver(dout, clk_rx ,reset ,par ,d_num ,s_num ,err ,rx);
 	parameter MAX_7_BITS = 1'b0;
 	parameter MAX_8_BITS = 1'b1;
 	
+	assign err = {PAR_ERR,FRAME_ERR,DO_ERR};///-----
+
 	initial 
 	begin 
 		state <= STATE_START;
@@ -45,14 +58,12 @@ module receiver(dout, clk_rx ,reset ,par ,d_num ,s_num ,err ,rx);
 			PAR_ERR <= 0;
 			FRAME_ERR <= 0;
 			DO_ERR <= 0;
-			err <= 0;
 			dout <= 0;
 			rx_data <= 0;
 			
 		end 
 		else 
 		begin 
-			err = {PAR_ERR,FRAME_ERR,DO_ERR};///-----
 			case (state)
 				STATE_START: 
 				begin 
@@ -70,7 +81,6 @@ module receiver(dout, clk_rx ,reset ,par ,d_num ,s_num ,err ,rx);
 							PAR_ERR <= 0;
 			        FRAME_ERR <= 0;
 			        DO_ERR <= 0;
-			        err <= 0;
 							state <= STATE_READ;
 						end
 					else sample_counter <= sample_counter + 1;
