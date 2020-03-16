@@ -15,5 +15,5 @@ This repository contains scripts that I create through my digital design course.
 
 - [UART](uart) Universal asynchronous receiver-transmitter.
 
-###### Contact .. 
-Contact ME: Ahmad Hegazy <ahegazipro@gmail.com>
+###### Contribution .. 
+You can send a pull request for any edits or open an issue
